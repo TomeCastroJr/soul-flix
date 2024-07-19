@@ -6,8 +6,10 @@ import Loader from "../components/loader/Loader"
 import toast from "react-hot-toast";
 import { UsuarioContext } from "../contexts/UsuarioContext"
 import Header from "../components/header/Header"
+import CardFilme from "../components/cardfilme/CardFilme"
 
-const Filmes = () => {
+
+function Filmes(){
     const [ filmes, setFilmes]  = useState(null)
     //Recuperamos a informação do usuário (se está logado ou não)
     const usuario = useContext(UsuarioContext)
@@ -43,6 +45,7 @@ const Filmes = () => {
     <>
         <Header></Header>
         <main>
+            
             <Container>
                 <h1>Seus filmes</h1>
                 <hr />
@@ -50,7 +53,14 @@ const Filmes = () => {
                 {
                     filmes ? <section className="mt-2 d-flex">
                         {filmes.map( (filme) => {
-                        return <Card  key={filme.id}>
+                        return <CardFilme 
+                            id={filme.id}
+                            titulo={filme.titulo}
+                            descricao={filme.descricao}
+                            assistido={filme.assistido}
+                            genero={filme.genero}
+                            deletarFilmes={deletarFilmes}
+                        /> /*<Card  key={filme.id}>
                         <Card.Img variant="top" src="https://placehold.co/200x200" style={{ width: '200px' }}/>
                         <Card.Body>
                             <Card.Title>{filme.titulo}</Card.Title>
@@ -70,7 +80,7 @@ const Filmes = () => {
                             </Button>
                             <Button variant="danger" onClick={ () => deletarFilmes(filme.id)}>Excluir</Button>
                         </Card.Body>
-                    </Card>
+                    </Card>*/
                         })}
                     </section> : <Loader/>
                 }
