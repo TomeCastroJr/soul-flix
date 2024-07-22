@@ -22,8 +22,8 @@ function AdicionarNovoFilme() {
   const navigate = useNavigate();
 
   function handleImagem(event){
-      const file = event.target.files[0]
-      setFile(file)
+    const imagePreview = URL.createObjectURL(event.target.files[0])
+    setFile(imagePreview)
   }
   
   function salvarFilme(data) {
@@ -49,9 +49,11 @@ function AdicionarNovoFilme() {
     <main>
       <form className="form-section" onSubmit={handleSubmit(salvarFilme)}>
         <h1>Adicionar Filme</h1>
-
         <div>
           <label htmlFor="imageUrl">upload imagem</label>
+          <div className="preview">
+            {file ? <img src={file} alt="Imagem de upload" /> : "Upload imagem"}
+          </div>
           <input
             type="file"
             id="imageUrl"
@@ -77,7 +79,7 @@ function AdicionarNovoFilme() {
           <textarea
             id="descricao"
             className="form-control"
-            {...register("descricao", { required: true })}
+            {...register("descricao", { required: true, maxLength:40 })}
           ></textarea>
           {errors.descricao && (
             <small className="invalid">Campo obrigatório</small>

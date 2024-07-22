@@ -12,13 +12,10 @@ import Botao from "../components/botao/Botao"
 
 function Filmes(){
     const [ filmes, setFilmes]  = useState(null)
-    //Recuperamos a informação do usuário (se está logado ou não)
     const usuario = useContext(UsuarioContext)
     const navigate = useNavigate()
 
     function carregarDados(){
-        //o then devolve a lista de filmes da coleção
-        console.log("função carregar dados")
         addFilmesUsuario(usuario.uid).then( (resultados) => {
             setFilmes(resultados)
         })
