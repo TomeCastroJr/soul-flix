@@ -1,14 +1,18 @@
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { addFilme } from "../firebase/filmes";
+import { cadastroFilme, addFilmesUsuario } from "../firebase/filmes";
 import toast from "react-hot-toast";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UsuarioContext } from "../contexts/UsuarioContext";
 import Header from "../components/header/Header";
+import "./styles/AdicionarNovoFilme.css"
 
 function AdicionarNovoFilme() {
   const usuario = useContext(UsuarioContext)
+  const [file, setFile] = useState(null)
+
+
   const {
     register,
     handleSubmit,
@@ -17,20 +21,23 @@ function AdicionarNovoFilme() {
 
   const navigate = useNavigate();
 
-  function salvarTarefa(data) {
-    // Os dados do formulário são passados para a função de inserir
-    // Then => aguarda a inserção da tarefa para então exibir o toast
+  function handleImagem(event){
+      const file = event.target.files[0]
+      setFile(file)
+  }
+  
+  function salvarFilme(data) {
     data.idUsuario = usuario.uid
-    addFilme(data)
+    cadastroFilme(file,data)
       .then(() => {
         toast.success("Tarefa adicionada com sucesso!");
-        // Redirecionar o usuário para /filmes
         navigate("/filmes");
       })
       .catch(() => {
         toast.error("Um erro aconteceu ao adicionar tarefa!");
       });
   }
+
 
   if(usuario === null){
     return <Navigate to="/login"/>
@@ -40,9 +47,19 @@ function AdicionarNovoFilme() {
     <>
     <Header></Header>
     <main>
-      <form className="form-section" onSubmit={handleSubmit(salvarTarefa)}>
+      <form className="form-section" onSubmit={handleSubmit(salvarFilme)}>
         <h1>Adicionar Filme</h1>
-        <hr />
+
+        <div>
+          <label htmlFor="imageUrl">upload imagem</label>
+          <input
+            type="file"
+            id="imageUrl"
+            className="form-control"
+            onChange={handleImagem}
+          />
+        </div>
+
         <div>
           <label htmlFor="titulo">Título do filme</label>
           <input
@@ -52,7 +69,7 @@ function AdicionarNovoFilme() {
             {...register("titulo", { required: true, maxLength: 200 })}
           />
           {errors.titulo && (
-            <small className="invalid">Campo obrigatório</small>
+            <small className="invalid">Campo obrigatório {titulo}</small>
           )}
         </div>
         <div>
@@ -93,12 +110,12 @@ function AdicionarNovoFilme() {
             className="form-select"
             {...register("genero")}
           >
-            <option value="acao">Ação</option>
-            <option value="drama">Drama</option>
-            <option value="comedia">Comédia</option>
-            <option value="ficcao">Ficção Científica</option>
-            <option value="terror">Terror</option>
-            <option value="outros">Outros</option>
+            <option value="Ação">Ação</option>
+            <option value="Drama">Drama</option>
+            <option value="Comedia">Comédia</option>
+            <option value="ficção">Ficção Científica</option>
+            <option value="Terror">Terror</option>
+            <option value="Outros">Outros</option>
           </select>
         </div>
         <Button variant="dark" className="w-100 mt-1" type="submit">

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { UsuarioContext } from "../contexts/UsuarioContext"
 import Header from "../components/header/Header"
 import CardFilme from "../components/cardfilme/CardFilme"
+import Botao from "../components/botao/Botao"
 
 
 function Filmes(){
@@ -17,7 +18,7 @@ function Filmes(){
 
     function carregarDados(){
         //o then devolve a lista de filmes da coleção
-
+        console.log("função carregar dados")
         addFilmesUsuario(usuario.uid).then( (resultados) => {
             setFilmes(resultados)
         })
@@ -47,40 +48,27 @@ function Filmes(){
         <main>
             
             <Container>
-                <h1>Seus filmes</h1>
+                <h1 className="font-branco-s font-titulo-s">Seus <span className="font-amarelo-s">filmes</span></h1>
                 <hr />
-                <Link className="btn btn-dark" to="/filmes/adicionarfilmes">Adicionar filme</Link>
+                {/*<Link className="bg-amarelo-s font-preto-s" to="/filmes/adicionarfilmes">Adicionar filme</Link>*/}
+                <Botao 
+                    mensagem="Adicionar Filmes"
+                    rota="/filmes/adicionarfilmes"
+                    color="black"
+                />
                 {
-                    filmes ? <section className="mt-2 d-flex">
+                    filmes ? <section className="d-flex my-5 row mx-md-n5">
                         {filmes.map( (filme) => {
                         return <CardFilme 
+                            img={filme.imageUrl}
+                            key={filme.id}
                             id={filme.id}
                             titulo={filme.titulo}
                             descricao={filme.descricao}
                             assistido={filme.assistido}
                             genero={filme.genero}
                             deletarFilmes={deletarFilmes}
-                        /> /*<Card  key={filme.id}>
-                        <Card.Img variant="top" src="https://placehold.co/200x200" style={{ width: '200px' }}/>
-                        <Card.Body>
-                            <Card.Title>{filme.titulo}</Card.Title>
-                            <Card.Text>
-                                {filme.descricao}
-                            </Card.Text>
-                            <div>
-                                {filme.assistido ? 
-                                    <Badge bg="success">Concluído</Badge>:
-                                    <Badge bg="warning">Pendente</Badge>
-                                }
-                                <Badge bg="dark">{filme.genero}</Badge>
-                            </div>
-                            <Button 
-                                variant="dark" 
-                                onClick={ () => navigate(`/filmes/editar/${filme.id}`)} >Editar
-                            </Button>
-                            <Button variant="danger" onClick={ () => deletarFilmes(filme.id)}>Excluir</Button>
-                        </Card.Body>
-                    </Card>*/
+                        /> 
                         })}
                     </section> : <Loader/>
                 }

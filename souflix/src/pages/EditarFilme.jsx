@@ -5,6 +5,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getFilme, updateFilme } from "../firebase/filmes";
 import { useContext, useEffect } from "react";
 import { UsuarioContext } from "../contexts/UsuarioContext";
+import Header from "../components/header/Header";
 
 function EditarFilme() {
     const usuario = useContext(UsuarioContext)
@@ -45,6 +46,8 @@ function EditarFilme() {
   }
 
   return (
+    <>
+    <Header></Header>
     <main>
       <form className="form-section" onSubmit={handleSubmit(atualizarFilme)}>
         <h1>Editar Filme</h1>
@@ -112,6 +115,7 @@ function EditarFilme() {
         </Button>
       </form>
     </main>
+    </>
   );
 }
 

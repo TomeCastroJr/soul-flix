@@ -19,8 +19,8 @@ const Header = () => {
     <header>
         <Navbar bg='dark' variant="dark" expand="md">
           <Container fluid>
-            <Link to="/">
-              <img src="https://cdn.pixabay.com/photo/2017/09/29/00/30/checkmark-icon-2797531_640.png" alt="imagem" width="32px" />
+            <Link className='logo' to="/">
+              <img src="/logo.jpg" alt="imagem"/>
             </Link>
 
             <Navbar.Toggle />
@@ -30,6 +30,7 @@ const Header = () => {
                 {!usuario && <Link className='nav-link' to="/login">Login</Link>}
                 {!usuario && <Link className='nav-link' to="/cadastro">Cadastro</Link>}
                 {usuario && <span className='text-light nav-link'>{usuario.displayName}</span> }
+                {usuario && <img src={usuario.photoURL ? usuario.photoURL : "/avatar.jpeg"} className='nav-link avatar' />}
                 {usuario && <Button variant='outline-light' onClick={handleLogout}>
                   Sair
                 </Button>}

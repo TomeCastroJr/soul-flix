@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { entrarGoogle, loginUsuario } from "../firebase/auth";
+import "./styles/Login.css"
 
 function Login() {
   const {
@@ -30,31 +31,31 @@ function Login() {
   }
 
   return (
-    <main className="login">
-      <form className="form-section mt-5" onSubmit={handleSubmit(entrar)}>
+    <main className="login-container">
+      <form className="form-section" onSubmit={handleSubmit(entrar)}>
+        <img src="/faviIcon.png" width="150"/>
         <h1>Login</h1>
-        <hr />
         <div>
-          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
-            className="form-control"
-            {...register("email", { required: "O email é obrigatório" })}
+            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+            placeholder="Email"
+            {...register('email', { required: 'O email é obrigatório' })}
           />
           {errors.email && (
             <small className="invalid">{errors.email.message}</small>
           )}
         </div>
         <div>
-          <label htmlFor="senha">Senha</label>
           <input
             type="password"
             id="senha"
-            className="form-control"
-            {...register("senha", {
-              required: "A senha é obrigatória",
-              minLength: { value: 6, message: "Mínimo de 6 caracteres." },
+            className={`form-control ${errors.senha ? 'is-invalid' : ''}`}
+            placeholder="Senha"
+            {...register('senha', {
+              required: 'A senha é obrigatória',
+              minLength: { value: 6, message: 'Mínimo de 6 caracteres.' },
             })}
           />
           {errors.senha && (

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { cadastrarUsuario, entrarGoogle } from '../firebase/auth'
 import toast from 'react-hot-toast'
 import { useNavigate, Link } from 'react-router-dom'
+import "./styles/Cadastro.css"
 
 const Cadastro = () => {
   const { register, handleSubmit, formState: {errors} } = useForm()
@@ -25,9 +26,10 @@ const Cadastro = () => {
   }
 
   return (
-    <main>
+    <main className="login-container">
       <form className='form-section' onSubmit={handleSubmit(cadastrar)}>
-        <h1 className='border-bottom'>Cadastro</h1>
+        <img src="/faviIcon.png" width="150"/>
+        <h1>Cadastro</h1>
         <div>
           <label htmlFor="nome">Nome</label>
           <input 
