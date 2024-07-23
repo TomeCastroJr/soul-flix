@@ -5,10 +5,11 @@ import "./CardFilme.css"
 function CardFilme({ titulo, descricao, assistido, genero, id, deletarFilmes, img }){
     const navigate = useNavigate()
     const placeholderImagem = "/imagecard.png"
+    console.log(img)
   return (
     <Col xs={12} md={6} lg={4} className="mb-4 bg-s">
         <Card  key={id}>
-        <Card.Img variant="top" src={img ? img : placeholderImagem} className="image-card"/>
+        <Card.Img variant="top" src={img} className="image-card"/>
             <Card.Body className="bg-card-s font-branco-s">
                 <Card.Title>{titulo}</Card.Title>
                 <Card.Text>

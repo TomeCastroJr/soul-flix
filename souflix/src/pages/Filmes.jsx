@@ -20,7 +20,7 @@ function Filmes(){
             setFilmes(resultados)
         })
     }
-
+    
     function deletarFilmes(id){
         const deletar = confirm("Tem certeza ?")
         if(deletar){
@@ -34,7 +34,7 @@ function Filmes(){
     useEffect( () => {
         carregarDados()
     },[] )
-
+    
     if(usuario === null){
         return <Navigate to="/login"/>
     }

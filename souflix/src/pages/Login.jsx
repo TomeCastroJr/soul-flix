@@ -33,13 +33,16 @@ function Login() {
   return (
     <main className="login-container">
       <form className="form-section" onSubmit={handleSubmit(entrar)}>
-        <img src="/faviIcon.png" width="150"/>
+        <div className="box-logo">
+          <img src="/faviIcon.png" width="150"/>
+        </div>
         <h1>Login</h1>
         <div>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
-            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.email ? 'is-invalid' : ''} mb-2`}
             placeholder="Email"
             {...register('email', { required: 'O email é obrigatório' })}
           />
@@ -48,10 +51,11 @@ function Login() {
           )}
         </div>
         <div>
+          <label htmlFor="senha">Senha</label>
           <input
             type="password"
             id="senha"
-            className={`form-control ${errors.senha ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.senha ? 'is-invalid' : ''} mb-2`}
             placeholder="Senha"
             {...register('senha', {
               required: 'A senha é obrigatória',
@@ -62,9 +66,9 @@ function Login() {
             <small className="invalid">{errors.senha.message}</small>
           )}
         </div>
-        <Button variant="primary" className="mt-1 w-100" type="submit">
+        <button className="mt-1 w-100 botao-azul-s font-branco-s" type="submit">
           Entrar
-        </Button>
+        </button>
         <Button
           onClick={handleEntrarGoogle}
           variant="danger"
@@ -73,8 +77,7 @@ function Login() {
         >
           Entrar com o Google
         </Button>
-        <p>Novo por aqui ?</p>
-        <Link className="btn btn-primary" to="/cadastro">ainda não possui conta ?</Link>
+        <Link className="w-100 text-center d-block mt-1 mb-2" to="/cadastro">ainda não possui conta ?</Link>
       </form>
     </main>
   );

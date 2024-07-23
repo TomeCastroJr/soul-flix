@@ -28,14 +28,16 @@ const Cadastro = () => {
   return (
     <main className="login-container">
       <form className='form-section' onSubmit={handleSubmit(cadastrar)}>
-        <img src="/faviIcon.png" width="150"/>
+        <div className="box-logo">
+          <img src="/faviIcon.png" width="150"/>
+        </div>
         <h1>Cadastro</h1>
         <div>
           <label htmlFor="nome">Nome</label>
           <input 
             type="text" 
             id="nome" 
-            className='form-control' 
+            className={`form-control ${errors.email ? 'is-invalid' : ''} mb-1`} 
             {...register("nome")}
             {...register("nome", { required: true, maxLength: 150 })}
           /> 
@@ -46,7 +48,7 @@ const Cadastro = () => {
           <input 
             type="email" 
             id="email" 
-            className='form-control' 
+            className={`form-control ${errors.email ? 'is-invalid' : ''} mb-1`}  
             {...register("email")}
             {...register("email", { required: true })}
           />
@@ -57,21 +59,20 @@ const Cadastro = () => {
           <input 
             type="password" 
             id="senha" 
-            className='form-control' 
+            className={`form-control ${errors.email ? 'is-invalid' : ''} mb-1`}  
             {...register("senha")} 
             {...register("senha", { required: true, minLength: 6 })}
           />
           {errors.senha && <small className='invalid'>Senha inválida</small>}
         </div>
 
-        <Button variant='dark' className='mt-3 w-100' type='submit'>Cadastrar</Button>
+        <button className='w-100 botao-azul-s font-branco-s ' type='submit'>Cadastrar</button>
         <Button 
           variant='danger' 
           className='mt-1 w-100' 
           type='button' 
           onClick={handleEntrarGoogle}>Entrar com o google</Button>
-          <p>Já tem acesso ?</p>
-          <Link className="btn btn-primary" to="/">Faça login</Link>
+          <Link className="w-100 text-center d-block mt-1 mb-2" to="/">Possui conta ?</Link>
       </form>
     </main>
   )

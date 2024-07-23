@@ -11,6 +11,7 @@ import "./styles/AdicionarNovoFilme.css"
 function AdicionarNovoFilme() {
   const usuario = useContext(UsuarioContext)
   const [file, setFile] = useState(null)
+  const [preview, setPreview] = useState(null)
 
 
   const {
@@ -23,7 +24,8 @@ function AdicionarNovoFilme() {
 
   function handleImagem(event){
     const imagePreview = URL.createObjectURL(event.target.files[0])
-    setFile(imagePreview)
+    setFile(event.target.files[0])
+    setPreview(imagePreview)
   }
   
   function salvarFilme(data) {
@@ -45,15 +47,14 @@ function AdicionarNovoFilme() {
 
   return (
     <>
-    <Header></Header>
+    <Header />
     <main>
-      <form className="form-section" onSubmit={handleSubmit(salvarFilme)}>
+      <form className="form-section mb-2 mt-2 p-3" onSubmit={handleSubmit(salvarFilme)}>
         <h1>Adicionar Filme</h1>
-        <div>
-          <label htmlFor="imageUrl">upload imagem</label>
-          <div className="preview">
-            {file ? <img src={file} alt="Imagem de upload" /> : "Upload imagem"}
+        <div className="preview">
+            {file ? <img src={preview} alt="Imagem de upload" /> : "Upload imagem"}
           </div>
+        <div>
           <input
             type="file"
             id="imageUrl"
@@ -68,10 +69,10 @@ function AdicionarNovoFilme() {
             type="text"
             id="titulo"
             className="form-control"
-            {...register("titulo", { required: true, maxLength: 200 })}
+            {...register("titulo", { required: true})}
           />
           {errors.titulo && (
-            <small className="invalid">Campo obrigatório {titulo}</small>
+            <small className="invalid">Campo obrigatório</small>
           )}
         </div>
         <div>
@@ -79,7 +80,7 @@ function AdicionarNovoFilme() {
           <textarea
             id="descricao"
             className="form-control"
-            {...register("descricao", { required: true, maxLength:40 })}
+            {...register("descricao", { required: true })}
           ></textarea>
           {errors.descricao && (
             <small className="invalid">Campo obrigatório</small>
@@ -101,7 +102,7 @@ function AdicionarNovoFilme() {
             className="form-check-input"
             {...register("assistido")}
           />
-          <label htmlFor="concluido" className="form-check-label">
+          <label htmlFor="assistido" className="form-check-label">
             Assistido?
           </label>
         </div>

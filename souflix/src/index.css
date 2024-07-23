@@ -17,7 +17,6 @@ main {
 
 /*Form*/
 .form-section {
-    width: 500px;
     margin: 5px auto;
 }
 
@@ -83,7 +82,22 @@ hr{
     filter: brightness(.5);
 }
 
+.botao-azul-s{
+    background-color: #07151A;
+    border-radius: 5px;
+    border: none;
+    padding: 7px 0;
+    transition: all .3s ease;
 
+}
+.botao-azul-s:hover{
+    background-color: #193c49;
+}
+
+.box-logo{
+    display: flex;
+    justify-content: center;
+  }
 .avatar{
     width: 50px;
     border-radius: 50%;
